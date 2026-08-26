@@ -27,7 +27,10 @@ export default function (pi: ExtensionAPI) {
       return;
     }
 
-    const isCreditsError = errorMessage.includes("CreditsError");
+    const isCreditsError =
+      errorMessage.includes("CreditsError") ||
+      errorMessage.includes("GoUsageLimitError");
+
     if (!isCreditsError) {
       seqErrorCounter = 0;
       return;
