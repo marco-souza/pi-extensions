@@ -1,3 +1,4 @@
+import * as path from "node:path";
 import type { UserMessage } from "@earendil-works/pi-ai";
 import type {
   ExtensionAPI,
@@ -67,7 +68,10 @@ export default function (pi: ExtensionAPI) {
 }
 
 async function rotateOpencodeKeys() {
-  const file = Bun.file("../auth.json");
+  const homedir = Bun.env.HOME ?? "~";
+  const filepath = path.join(homedir, `.pi/agent/auth.json`);
+  const file = Bun.file(filepath);
+
   const {
     "opencode-go": { key: currentAuthKey },
   } = await file.json();
